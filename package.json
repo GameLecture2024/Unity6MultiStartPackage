@@ -3,7 +3,7 @@
     "version": "1.1.0",
     "displayName": "Network Multiplay Code",
     "description": "This is an Start Package for Multiplay Code",
-    "unity" : "6000.0.57",
+    "unity" : "6000.0",
     "dependencies": {
         "com.unity.textmeshpro" : "3.0.6",
         "com.unity.services.lobby" : "1.2.2",
