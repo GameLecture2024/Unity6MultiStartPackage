@@ -21,8 +21,6 @@ namespace NetworkB
             networkManager.OnServerStarted += OnNetworkReady;
         }
 
-
-
         private void ApprovalCheck(
             NetworkManager.ConnectionApprovalRequest request,
             NetworkManager.ConnectionApprovalResponse response)
@@ -30,16 +28,35 @@ namespace NetworkB
             string payload = System.Text.Encoding.UTF8.GetString(request.Payload);
             UserData userData = JsonUtility.FromJson<UserData>(payload);
 
+            Debug.Log(userData.userName);
+
             clientIdToAuth[request.ClientNetworkId] = userData.userAuthId;
             authIdToUserData[userData.userAuthId] = userData;
 
             response.Approved = true;
+            response.Position = SpawnPoint.GetSpawonPos();
+            response.Rotation = Quaternion.identity;
             response.CreatePlayerObject = true;
         }
 
         private void OnNetworkReady()
         {
             networkManager.OnClientDisconnectCallback += OnClientDisconnect;
+        }
+
+        public UserData GetUserDataByClientId(ulong clientId)
+        {
+            if(clientIdToAuth.TryGetValue(clientId, out string authId))
+            {
+                if(authIdToUserData.TryGetValue(authId, out UserData data))
+                {
+                    return data;
+                }
+
+                return null;
+            }
+
+            return null;
         }
 
         private void OnClientDisconnect(ulong clientId)
