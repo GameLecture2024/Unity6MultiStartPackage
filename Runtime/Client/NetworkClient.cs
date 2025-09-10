@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,11 @@ namespace NetworkB
         {
             if (clientId != 0 && clientId != networkManager.LocalClientId) { return; }
 
+            DisConnect();
+        }
+
+        public void DisConnect()
+        {
             if (SceneManager.GetActiveScene().name != MenuSceneName)
             {
                 SceneManager.LoadScene(MenuSceneName);
@@ -42,6 +48,8 @@ namespace NetworkB
                 networkManager.OnClientDisconnectCallback -= OnClientDisconnect;
             }
         }
+
+
     }
 
 }

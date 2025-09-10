@@ -11,6 +11,8 @@ public class ScoreBoard : NetworkBehaviour
     NetworkVariable<int> redScore = new();
     NetworkVariable<int> blueScore = new();
 
+    [SerializeField] int matchPoint = 5;
+
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -48,6 +50,15 @@ public class ScoreBoard : NetworkBehaviour
         else
         {
             blueScore.Value++;
+        }
+
+        if(redScore.Value == matchPoint)
+        {
+            Bus<IMatchEndEvent>.Raise(new IMatchEndEvent(Team.Red));
+        }
+        else if(blueScore.Value == matchPoint)
+        {
+            Bus<IMatchEndEvent>.Raise(new IMatchEndEvent(Team.Blue));
         }
     }
 }

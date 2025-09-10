@@ -41,11 +41,11 @@ public class BallSpawner : NetworkBehaviour
 
         if(team == Team.Blue)
         {
-            return new Vector3(5, 0, 0);
+            return new Vector3(-4, 0, 0);
         }
         else
         {
-            return new Vector3(-5, 0, 0);
+            return new Vector3(4, 0, 0);
         }
     }
 }

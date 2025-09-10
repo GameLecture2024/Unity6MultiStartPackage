@@ -76,9 +76,16 @@ namespace NetworkB
             NetworkManager.Singleton.StartClient();
         }
 
+        public void Disconnect()
+        {
+            networkClient.DisConnect();
+        }
+
         public void Dispose()
         {
             networkClient?.Dispose();
         }
+
+       
     } 
 }
